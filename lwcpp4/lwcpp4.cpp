@@ -64,6 +64,7 @@ int main()
 		HPEN hBluePen = CreatePen(PS_SOLID, 5, RGB(223, 238, 94));
 		HPEN hOldPen = SelectPen(hdc, hBluePen);
 
+		shape *pS;
 		convexQuad *q = new convexQuad(280.0, 260.0, 90);
 		filledConvexQuad *f = new filledConvexQuad(280.0, 260.0, 90);
 		combinedConvexQuad *c = new combinedConvexQuad(280.0, 260.0, 90, f);
@@ -93,19 +94,19 @@ int main()
 
 			case 2:	do
 			{
-				q->Draw(hdc);
+				pS = q; pS->Draw(hdc);// механизм позднего связывания в построенной	иерархии классов
 			} while (_getch() != 27);
 			break;
 
 			case 3:	do
 			{				
-				f->Draw(hdc);				
+				pS = f; pS->Draw(hdc);
 			} while (_getch() != 27);
 			break;
 
 			case 4: do
 			{				
-				c->Draw(hdc);				
+				pS = c; pS->Draw(hdc);
 			} while (_getch() != 27);
 			break;
 
