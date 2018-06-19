@@ -1,7 +1,7 @@
-#pragma once
+п»ї#pragma once
 #include "combinedConvexQuad.h"
 
-//класс - контейнер - двунаправленный список
+//РєР»Р°СЃСЃ - РєРѕРЅС‚РµР№РЅРµСЂ - РґРІСѓРЅР°РїСЂР°РІР»РµРЅРЅС‹Р№ СЃРїРёСЃРѕРє
 template <class Type> 
 class doubleLinkedList
 {
@@ -9,7 +9,7 @@ class doubleLinkedList
 	{
 	public:
 		int key;
-		Type *quads[5]; //массив для хранения объектов - фигур		
+		Type *quads[5]; //РјР°СЃСЃРёРІ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РѕР±СЉРµРєС‚РѕРІ - С„РёРіСѓСЂ		
 		CNode *next;
 		CNode *prev;
 		CNode()
@@ -39,7 +39,7 @@ public:
 	void searchNode(int mark);
 	int searchFreeCell();
 	void createNode(int mark);
-	void deleteTableElement(); //удаление фигуры в таблице
+	void deleteTableElement(); //СѓРґР°Р»РµРЅРёРµ С„РёРіСѓСЂС‹ РІ С‚Р°Р±Р»РёС†Рµ
 	void deleteShape();
 	void showAllListsElements();
 	void showOneListElements(Type *tmp);
@@ -63,7 +63,7 @@ void doubleLinkedList<Type>::addShapeToTable(Type *paintQuad)
 {
 	createNode(paintQuad->mark);
 	if (searchFreeCell() >= 0) curr->quads[searchFreeCell()] = paintQuad;
-	else cout << "Нет свободных ячеек, нажмите любую кнопку для возврата" << endl;	
+	else cout << "РќРµС‚ СЃРІРѕР±РѕРґРЅС‹С… СЏС‡РµРµРє, РЅР°Р¶РјРёС‚Рµ Р»СЋР±СѓСЋ РєРЅРѕРїРєСѓ РґР»СЏ РІРѕР·РІСЂР°С‚Р°" << endl;	
 }
 
 template <class Type>
@@ -125,13 +125,13 @@ void doubleLinkedList<Type>::deleteTableElement()
 	int mark;
 	if (head == NULL)
 	{
-		cout << "Таблица пуста" << endl;
+		cout << "РўР°Р±Р»РёС†Р° РїСѓСЃС‚Р°" << endl;
 		return;
 	}
-	cout << "Введите идентификатор удаляемых фигур:\n"
-		<< "Если d1 < d2 - цифра 0\n"
-		<< "Если d1 > d2 - цифра 1\n"
-		<< "Если d1 = d2 - цифра 2" << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СѓРґР°Р»СЏРµРјС‹С… С„РёРіСѓСЂ:\n"
+		<< "Р•СЃР»Рё d1 < d2 - С†РёС„СЂР° 0\n"
+		<< "Р•СЃР»Рё d1 > d2 - С†РёС„СЂР° 1\n"
+		<< "Р•СЃР»Рё d1 = d2 - С†РёС„СЂР° 2" << endl;
 	do {
 		cin >> mark;
 	} while (mark < 0 && mark > 2);
@@ -143,12 +143,12 @@ template <class Type>
 void doubleLinkedList<Type>::deleteShape()
 {
 	int choice;
-	cout << "Введите номер удаляемой фигуры 0...4: " << endl;
+	cout << "Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ СѓРґР°Р»СЏРµРјРѕР№ С„РёРіСѓСЂС‹ 0...4: " << endl;
 	do {
 		cin >> choice;
 		if (curr->quads[choice] == NULL)
 		{
-			cout << "Такой фигуры нет в контейнере\n";
+			cout << "РўР°РєРѕР№ С„РёРіСѓСЂС‹ РЅРµС‚ РІ РєРѕРЅС‚РµР№РЅРµСЂРµ\n";
 			return;
 		}
 	} while (choice < 0 && choice > 4);
@@ -158,7 +158,7 @@ void doubleLinkedList<Type>::deleteShape()
 }
 
 
-//распечатка элементов в таблице
+//СЂР°СЃРїРµС‡Р°С‚РєР° СЌР»РµРјРµРЅС‚РѕРІ РІ С‚Р°Р±Р»РёС†Рµ
 template <class Type>
 void doubleLinkedList<Type>::showAllListsElements()
 {
@@ -167,9 +167,9 @@ void doubleLinkedList<Type>::showAllListsElements()
 		Type *tmp;
 		tmp = NULL;
 		int choice;
-		cout << "Выберите направление вывода данных объектов списка:\n"
-			<< "1 - c произвести вывод с начала списка\n"
-			<< "2 - с конца списка" << endl;
+		cout << "Р’С‹Р±РµСЂРёС‚Рµ РЅР°РїСЂР°РІР»РµРЅРёРµ РІС‹РІРѕРґР° РґР°РЅРЅС‹С… РѕР±СЉРµРєС‚РѕРІ СЃРїРёСЃРєР°:\n"
+			<< "1 - c РїСЂРѕРёР·РІРµСЃС‚Рё РІС‹РІРѕРґ СЃ РЅР°С‡Р°Р»Р° СЃРїРёСЃРєР°\n"
+			<< "2 - СЃ РєРѕРЅС†Р° СЃРїРёСЃРєР°" << endl;
 		do {
 			cin >> choice;
 		} while (choice < 1 && choice > 2);
@@ -182,8 +182,8 @@ void doubleLinkedList<Type>::showAllListsElements()
 			break;
 		}
 	}
-	else cout << "Нет данных в таблице" << endl
-		<< "Нажмите Esc для возврата" << endl;
+	else cout << "РќРµС‚ РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Рµ" << endl
+		<< "РќР°Р¶РјРёС‚Рµ Esc РґР»СЏ РІРѕР·РІСЂР°С‚Р°" << endl;
 }
 
 template <class Type>
@@ -196,10 +196,10 @@ void doubleLinkedList<Type>::showOneListElements(Type *tmp)
 		if (curr->quads[i] != NULL)
 		{
 			tmp = curr->quads[i];
-			cout << "Номер фигуры: " << i << endl
-				<< "Длина диагонали 1 выпуклого четырехугольника: " << tmp->Get_diagonal1() << endl
-				<< "Длина диагонали 2 выпуклого четырехугольника: " << tmp->Get_diagonal2() << endl
-				<< "Величина угла между диагоналями выпуклого четырехугольника: " << tmp->Get_angle() << endl;
+			cout << "РќРѕРјРµСЂ С„РёРіСѓСЂС‹: " << i << endl
+				<< "Р”Р»РёРЅР° РґРёР°РіРѕРЅР°Р»Рё 1 РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°: " << tmp->Get_diagonal1() << endl
+				<< "Р”Р»РёРЅР° РґРёР°РіРѕРЅР°Р»Рё 2 РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°: " << tmp->Get_diagonal2() << endl
+				<< "Р’РµР»РёС‡РёРЅР° СѓРіР»Р° РјРµР¶РґСѓ РґРёР°РіРѕРЅР°Р»СЏРјРё РІС‹РїСѓРєР»РѕРіРѕ С‡РµС‚С‹СЂРµС…СѓРіРѕР»СЊРЅРёРєР°: " << tmp->Get_angle() << endl;
 		}
 	}
 }
@@ -210,7 +210,7 @@ void doubleLinkedList<Type>::showFromHead(Type *tmp)
 	curr = head;
 	while (curr != NULL)
 	{
-		cout << "Номер категории фигур: " << curr->key << endl;
+		cout << "РќРѕРјРµСЂ РєР°С‚РµРіРѕСЂРёРё С„РёРіСѓСЂ: " << curr->key << endl;
 		showOneListElements(tmp);
 		curr = curr->next;
 	}
@@ -222,7 +222,7 @@ void doubleLinkedList<Type>::showFromTail(Type * tmp)
 	curr = tail;
 	while (curr != NULL)
 	{
-		cout << "Номер категории фигур: " << curr->key << endl;
+		cout << "РќРѕРјРµСЂ РєР°С‚РµРіРѕСЂРёРё С„РёРіСѓСЂ: " << curr->key << endl;
 		showOneListElements(tmp);
 		curr = curr->prev;
 	}
@@ -254,8 +254,8 @@ void doubleLinkedList<Type>::saveDataInTableToFile()
 			curr = curr->next;
 		}
 	}
-	else cout << "Нет данных в таблице" << endl
-		<< "Нажмите Esc для возврата" << endl;
+	else cout << "РќРµС‚ РґР°РЅРЅС‹С… РІ С‚Р°Р±Р»РёС†Рµ" << endl
+		<< "РќР°Р¶РјРёС‚Рµ Esc РґР»СЏ РІРѕР·РІСЂР°С‚Р°" << endl;
 }
 
 template <class Type>
