@@ -3,11 +3,12 @@
 
 class convexQuad :public shape
 {
+	template <class Type> friend class doubleLinkedList;
 protected:
 	double *diagonal1, *diagonal2; //диагонали выпуклого четырехугольника
 	double *angle; //угол между диагоналями			
 	double *diagonal1Angle; //угол между осью х и диагональю 1
-	int mark; //признак, по которому фигуры делятся на категории и заносятся в массив в соответствующем узле списка
+	int mark; //признак, по которому фигуры делятся на категории и заносятся в таблицу-контейнер
 
 public:
 	convexQuad(); //конструктор по умолчанию

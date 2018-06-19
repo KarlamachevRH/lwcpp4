@@ -3,6 +3,7 @@
 
 class filledConvexQuad :public convexQuad, public filled
 {
+	template <class Type> friend class doubleLinkedList;
 public:
 	filledConvexQuad(); 
 	filledConvexQuad(double d1, double d2, double angle);
@@ -11,4 +12,3 @@ public:
 	
 	void Draw(HDC hdc);//переопределение чисто виртуальной функции
 };
-

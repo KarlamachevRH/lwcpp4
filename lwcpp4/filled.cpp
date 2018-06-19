@@ -35,4 +35,3 @@ void filled::DelBrush(HDC hdc, HBRUSH hSomeBrush, HBRUSH hOldBrush)
 	DeleteBrush(hSomeBrush);
 	hOldBrush = SelectBrush(hdc, hOldBrush);
 }
-

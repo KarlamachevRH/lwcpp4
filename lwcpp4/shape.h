@@ -18,4 +18,3 @@ protected:
 public:
 	virtual void Draw(HDC hdc) = 0; // чисто виртуальная функция
 };
-

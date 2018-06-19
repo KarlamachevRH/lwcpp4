@@ -1,4 +1,4 @@
-﻿#include "combinedConvexQuad.h"
+﻿#include "doubleLinkedList.h"
 
 using namespace std;
 
@@ -17,12 +17,139 @@ int mainMenu()
 			<< "5. Изменение размеров фигуры\n"
 			<< "6. Перемещение фигуры\n"
 			<< "7. Вывод данных в файл\n"
-			<< "8. Выход\n"			
+			<< "8. В меню работы с контейнером для фигур\n"
+			<< "9. Выход\n"
 			<< "ESC для повтора выбора пункта меню\n"
 			<< ">:";
 		cin >> choice;
-	} while (choice < 1 || choice > 8);
+	} while (choice < 1 || choice > 9);
 	return choice;
+}
+
+//меню выбора действий при работе с контейнером
+int menuContainers()
+{
+	int choice = 0;
+	do
+	{
+		cout << "Введите номер пункта меню выбора действий при работе с контейнерами:\n"
+			<< "1. Добавить объект в контейнер - таблицу\n"
+			<< "2. Загрузить данные объектов из файла в контейнер - таблицу \n"
+			<< "3. Сохранить данные объектов из контейнера в файл\n"
+			<< "4. Удалить элемент из таблицы\n"
+			<< "5. Вывод данных объектов в таблице на экран\n"
+			<< "6. Выход в меню выбора типа контейнера\n"
+			<< "ESC для повтора выбора пункта меню\n"
+			<< ">:";
+		cin >> choice;
+	} while (choice < 1 || choice > 6);
+
+	return choice;
+}
+
+template <typename Type> 
+Type *createShapeFirstTime()
+{
+	Type *q = new Type();	
+	return q;
+}
+
+template <typename Type> 
+Type *createShape()
+{
+	double d1, d2, angle;
+	cout << "Введите параметры фигуры: d1, d2, angle\n";
+	cin >> d1 >> d2 >> angle;
+	Type *q = new Type(d1, d2, angle);	
+	return q;
+}
+
+//работа с двухсвязным списком
+void workingWithDoubleLinkedList()
+{
+	doubleLinkedList <convexQuad> *l1= new doubleLinkedList <convexQuad>(); //создание объекта-контейнера
+	doubleLinkedList <filledConvexQuad> *l2 = new doubleLinkedList <filledConvexQuad>();
+	doubleLinkedList <combinedConvexQuad> *l3 = new doubleLinkedList <combinedConvexQuad>();
+	
+	int cnt = 0; //счетчик циклов основного меню в функции
+
+	while (1)
+	{
+		//выбор действий при работе с контейнером
+		int choice = menuContainers();
+
+		convexQuad *p = NULL;
+		filledConvexQuad *p1 = NULL;
+		combinedConvexQuad *p2 = NULL;
+
+		//начальное создание объекта - фигуры
+		if (cnt == 0)
+		{
+			p = createShapeFirstTime<convexQuad>();
+			p1 = createShapeFirstTime<filledConvexQuad>();
+			p2 = createShapeFirstTime<combinedConvexQuad>();
+		}
+
+		//добавить еще одну фигуру
+		if (cnt > 0 && choice == 1)
+		{
+			p = createShape<convexQuad>();
+			p1 = createShape<filledConvexQuad>();
+			p2 = createShape<combinedConvexQuad>();
+		}
+
+		switch (choice)
+		{
+		case 1: l1->addShapeToTable(p);
+			l2->addShapeToTable(p1);
+			l3->addShapeToTable(p2);
+			cout << "Данные фигур добавлены в контейнер" << endl;
+			break;
+
+		case 2:	try
+		{
+			l1->writeDataFromFileToTable();
+			l2->writeDataFromFileToTable();
+			l3->writeDataFromFileToTable();
+
+			cout << "Данные из файла добавлены в таблицы-контейнеры" << endl;
+		}
+				catch (int error)
+				{
+					if (error == 1)
+					{
+						cout << "Файл не найден" << endl;
+					}
+				}
+				break;
+
+		case 3: l1->saveDataInTableToFile();
+			cout << "Данные в контейнере сохранены в файл" << endl;
+			break;
+
+		case 4: l1->deleteTableElement();
+			cout << "Фигура удалена из таблицы-контейнера" << endl;
+			break;
+
+		case 5: 
+			cout << "Фигура-контур:" << endl;
+			l1->showAllListsElements();
+			cout << "Закрашенная фигура:" << endl;
+			l2->showAllListsElements();
+			cout << "Выпуклый четырехугольник с вложенной фигурой:" << endl;
+			l3->showAllListsElements();
+			break;
+
+		case 6: delete l1;
+			delete l2;
+			delete l3;
+			return;
+			break;
+
+		default: break;
+		}
+		cnt++;
+	}
 }
 
 //функция проверки наличия окна блокнота
@@ -67,7 +194,7 @@ int main()
 		shape *pS;
 		convexQuad *q = new convexQuad(280.0, 260.0, 90);
 		filledConvexQuad *f = new filledConvexQuad(280.0, 260.0, 90);
-		combinedConvexQuad *c = new combinedConvexQuad(280.0, 260.0, 90, f);
+		combinedConvexQuad *c = new combinedConvexQuad(280.0, 260.0, 90);
 
 		while (1)
 		{
@@ -155,7 +282,10 @@ int main()
 			case 7:	q->SaveFile();
 				break;
 
-			case 8:	delete q;
+			case 8:	workingWithDoubleLinkedList();
+				break;
+
+			case 9:	delete q;
 				delete c;
 				ReleaseDC(hwnd, hdc);
 				return 0;
